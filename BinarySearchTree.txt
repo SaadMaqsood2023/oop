@@ -1,0 +1,91 @@
+
+
+public class BinarySearchTree1
+{
+
+    static class Node
+    {
+        int data;
+        Node left;
+        Node right;
+        Node(int data)
+        {
+            this.data = data;
+            left = null;
+            right = null;
+        }
+
+    }
+
+    public static Node BuildSearchTree(Node root, int value)
+    {
+        if(root == null)
+        {
+            root = new Node(value);
+            return root;
+        }
+
+        if(root.data > value)
+        {
+            root.left = BuildSearchTree(root.left, value);
+        }
+        else
+        {
+            root.right = BuildSearchTree(root.right, value);
+        }
+
+        return root;
+    }
+
+    public static void inorderBST(Node root)
+    {
+        if(root == null)
+        {
+            // System.out.println("The tree is empty.");
+            return;
+        }
+
+        inorderBST(root.left);
+        System.out.print(root.data + ", ");
+        inorderBST(root.right);
+    }
+
+    public static boolean searchBST(Node root,int value)
+    {
+        if(root == null)
+        {
+            return false;
+        }
+        if(root.data == value)
+        {
+            return true;
+        }
+
+        if(root.data > value)
+        {
+            return searchBST(root.left, value);
+        }
+        else
+        {
+            return searchBST(root.right, value);
+        }
+    }
+
+    public static void main(String args[])
+    {
+        int arr[] = {1, 10, 8, 4, 6, 3, 2, 5};
+
+        Node root = null;
+        for(int i=0; i<arr.length; ++i)
+        {
+            root = BuildSearchTree(root, arr[i]);
+        }
+
+        BinarySearchTree1.inorderBST(root);
+        boolean istrue = BinarySearchTree1.searchBST(root, 6);
+        System.out.println();
+        System.out.println(istrue);
+    }
+
+
+}
